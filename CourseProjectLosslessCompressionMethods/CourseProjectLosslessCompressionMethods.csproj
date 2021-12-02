@@ -52,6 +52,8 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Methods\Deflate.cs" />
+    <Compile Include="Methods\LZ77.cs" />
     <Compile Include="Test.cs" />
     <Compile Include="Methods\Huffman.cs" />
     <Compile Include="Program.cs" />
