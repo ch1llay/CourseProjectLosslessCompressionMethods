@@ -10,16 +10,11 @@ using System.Windows.Forms;
 
 namespace CourseProjectLosslessCompressionMethods
 {
-    public partial class Form1 : Form
+    public partial class GraphicResult : Form
     {
-        public Form1()
+        public GraphicResult()
         {
             InitializeComponent();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

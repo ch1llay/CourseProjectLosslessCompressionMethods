@@ -52,12 +52,27 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="GraphicResult.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GraphicResult.Designer.cs">
+      <DependentUpon>GraphicResult.cs</DependentUpon>
+    </Compile>
     <Compile Include="Methods\Deflate.cs" />
     <Compile Include="Methods\LZ77.cs" />
+    <Compile Include="TableResult.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TableResult.Designer.cs">
+      <DependentUpon>TableResult.cs</DependentUpon>
+    </Compile>
     <Compile Include="Test.cs" />
     <Compile Include="Methods\Huffman.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
