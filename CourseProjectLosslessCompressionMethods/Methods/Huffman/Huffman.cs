@@ -33,7 +33,7 @@ namespace CourseProjectLosslessCompressionMethods.Methods.Huffman
     {
         List<Node> codeTreeNodes = new List<Node>();
         Node root;
-        int[] freqs = new int[255]; // массив, он же словарь частот использования байт
+        int[] freqs = new int[256]; // массив, он же словарь частот использования байт
         public void CompressFile(string dataFilename)
         {
             byte[] data = File.ReadAllBytes(dataFilename);
