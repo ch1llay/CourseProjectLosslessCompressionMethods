@@ -5,7 +5,7 @@ namespace CourseProjectLosslessCompressionMethods.Methods.Huffman
     internal class PriorityQueue<T>
     {
         int size;
-        int Size { get { return size; } }
+        public int Size { get { return size; } }
         SortedDictionary<int, Queue<T>> storage;
 
         public PriorityQueue()

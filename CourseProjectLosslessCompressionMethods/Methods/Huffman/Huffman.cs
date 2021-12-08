@@ -20,11 +20,11 @@ namespace CourseProjectLosslessCompressionMethods.Methods.Huffman
             this.freq = freq;
         }
 
-        public Node(int freq, Node bit0, Node bit1)
+        public Node(Node bit0, Node bit1, int freq)
         {
-            this.freq = freq;
             this.bit0 = bit0;
             this.bit1 = bit1;
+            this.freq = freq;
         }
     }
 
@@ -67,7 +67,15 @@ namespace CourseProjectLosslessCompressionMethods.Methods.Huffman
                     pq.Enqueue(freqs[j], new Node((byte)j, freqs[j]));
                 }
             }
-            return null;
+            while (pq.Size > 1)
+            {
+                Node bit0 = pq.Dequeue();
+                Node bit1 = pq.Dequeue();
+                int freqSum = bit0.freq + bit1.freq;
+                Node parent = new Node(bit0, bit1, freqSum);
+                pq.Enqueue(freqSum, parent);
+            }
+            return pq.Dequeue();
         }
 
         //void PushNodesToList()
