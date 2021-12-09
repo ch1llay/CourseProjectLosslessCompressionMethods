@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using CourseProjectLosslessCompressionMethods.Methods.Huffman;
 using CourseProjectLosslessCompressionMethods.Methods.LZ77;
 using CourseProjectLosslessCompressionMethods.Methods.Deflate;
+using System.Windows.Forms;
 
 namespace CourseProjectLosslessCompressionMethods
 {
@@ -14,10 +15,15 @@ namespace CourseProjectLosslessCompressionMethods
     
     class Test
     {
+        [STAThreadAttribute]
         public static void Main()
         {
             Huffman huffman = new Huffman();
-            huffman.CompressFile("Files/abra.txt");
+            string path = "Files/abra.txt";
+            FileDialog fileDialog = new OpenFileDialog();
+            fileDialog.ShowDialog();
+            path = fileDialog.FileName;
+            huffman.CompressFile(path);
         }
     }
 }

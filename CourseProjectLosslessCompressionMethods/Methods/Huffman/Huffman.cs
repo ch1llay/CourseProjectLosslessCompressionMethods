@@ -9,11 +9,10 @@ namespace CourseProjectLosslessCompressionMethods.Methods.Huffman
 {
     class Node
     {
-        public readonly byte? symbol;
+        public readonly byte symbol;
         public readonly int freq;
         public readonly Node bit0;
         public readonly Node bit1;
-        public byte? _01;
 
         public Node(byte symbol, int freq)
         {
@@ -35,6 +34,8 @@ namespace CourseProjectLosslessCompressionMethods.Methods.Huffman
         int[] freqs = new int[256]; // массив, он же словарь частот использования байт
         Node root;
         string[] codes = new string[256]; // массив кодов для каждого байта
+        byte[] data; //  входные данные
+        
         public void CompressFile(string dataFilename)
         {
             byte[] data = File.ReadAllBytes(dataFilename);
@@ -47,41 +48,65 @@ namespace CourseProjectLosslessCompressionMethods.Methods.Huffman
             GetFreqsSymbols(data);
             root = CreateHuffmanTree();
             CreateHuffmanCodes();
-            return data;
+            byte[] compressedBytes = Compress(data);
+            // byte[] head = CreateHeader(data.Length);
+            return compressedBytes;
         }
 
-        private void CreateHuffmanCodes()
-        {
-            Stack<Node> stack = new Stack<Node>();
-            stack.Push(root);
-            StringBuilder currentCode = new StringBuilder();
+        //private byte[] CreateHeader(int dataLength)
+        //{
+        //    List<byte> head = new List<byte>();
+        //    head.Add((byte)(dataLength        & 255));
+        //    head.Add((byte)((dataLength  >> 8)& 255));
+        //    head.Add((byte)((dataLength  >> 16)& 255));
+        //    head.Add((byte)((dataLength  >> 24)& 255));
+        //}
 
-            while (stack.Count > 0)
+        byte[] Compress(byte[] data)
+        {
+            List<byte> bits = new List<byte>();
+            byte sum = 0;
+            byte bit = 1;
+            foreach(byte symbol in data)
             {
-                Node node = stack.Pop();
-                if (node._01 != null)
+                foreach(char c in codes[symbol])
                 {
-                    if (node._01 == 0)
-                        {
-                        currentCode.Append('0');
+                    if(c == '1')
+                    {
+                        sum |= bit;
+                    }
+                    if(bit < 128)
+                    {
+                        bit <<= 1;
                     }
                     else
                     {
-                        currentCode.Append('1');
+                        bits.Add(sum);
+                        sum = 0;
+                        bit = 1;
                     }
                 }
-
-                if (node.bit0 == null)
+            }
+            if (bit > 1)
+            {
+                bits.Add(sum);
+            }
+            return bits.ToArray();
+        }
+        private void CreateHuffmanCodes()
+        {
+            Next(root, "");
+            void Next(Node node, string code)
+            {
+                if(node.bit0 == null)
                 {
-                    codes[(int)node.symbol] = currentCode.ToString();
-                    currentCode.Clear();
+                    codes[node.symbol] = code;
                 }
                 else
                 {
-                    stack.Push(node.bit1);
-                    stack.Push(node.bit0);
+                    Next(node.bit0, code + '0');
+                    Next(node.bit1, code + '1');
                 }
-
             }
 
 
@@ -109,8 +134,6 @@ namespace CourseProjectLosslessCompressionMethods.Methods.Huffman
             {
                 Node bit0 = pq.Dequeue();
                 Node bit1 = pq.Dequeue();
-                bit0._01 = 0;
-                bit1._01 = 1;
                 int freqSum = bit0.freq + bit1.freq;
                 Node parent = new Node(bit0, bit1, freqSum);
                 pq.Enqueue(freqSum, parent);
