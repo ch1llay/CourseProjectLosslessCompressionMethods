@@ -58,9 +58,11 @@
     <Compile Include="GraphicResult.Designer.cs">
       <DependentUpon>GraphicResult.cs</DependentUpon>
     </Compile>
+    <Compile Include="Methods\Class1.cs" />
     <Compile Include="Methods\Deflate.cs" />
     <Compile Include="Methods\Huffman\PriorityQueue.cs" />
     <Compile Include="Methods\LZ77.cs" />
+    <Compile Include="Methods\LZ77\ListArray.cs" />
     <Compile Include="TableResult.cs">
       <SubType>Form</SubType>
     </Compile>

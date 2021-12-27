@@ -9,89 +9,30 @@ namespace CourseProjectLosslessCompressionMethods.Methods.LZ77
 {
     class LZ77
     {
+        /*
+         * положить все в буфер
+         * посмотреть нет ли сопадений словаря с буфером
+         * сдвинуть влево элементы (0 из буфера станет последним в словаре и так по всем совпадающим) (записывать позицию и количество
+         * записать в code (от, сколько, последний символ из словаря)
+         */
 
         static int dictionarySize;
         static int buferSize;
         string inputData;
         string code;
-        ListArray<char> dict = new ListArray<char>(dictionarySize);
-        ListArray<char> bufer = new ListArray<char>(buferSize);
+        ListArray<char> dict;
+        ListArray<char> bufer;
         public LZ77(string inputData, int dictionarySize_, int buferSize_)
         {
             this.inputData = inputData;
             dictionarySize = dictionarySize_;
             buferSize = buferSize_;
+            dict = new ListArray<char>(dictionarySize);
+            bufer = new ListArray<char>(buferSize);
 
         }
 
-        class ListArray<T>
-        {
-            T[] m;
-            int size;
-            List<T> l;
-            public ListArray(int size)
-            {
-                this.size = size;
-                m = new T[size];
-                l = new List<T>(size);
-
-            }
-
-            void FillM()
-            {
-                for(int i = 0; i < l.Count; i++)
-                {
-                    m[i] = l[i];
-                }
-                for(int i = l.Count - 1; i < size; i++)
-                {
-                    m[i] = default;
-                }
-            }
-            public void Add(T el)
-            {
-                if (l.Count < size)
-                {
-                    l.Add(el);
-                    FillM();
-                    
-                }
-                else
-                {
-                    throw new Exception("Переполнение");
-                }
-            }
-
-            public T Take0()
-            {
-                if (l.Count > 0)
-                {
-                    T el = l[0];
-                    l.RemoveAt(0);
-                    FillM();
-                    return el;
-                }
-                else
-                {
-                    throw new Exception("Пусто");
-                }
-                
-}
-            public T this[int index]
-            {
-                get
-                {
-                    return m[index];
-                }
-
-                set
-                {
-                    m[index] = value;
-                }
-            }
-
-
-        }
+        
         class Offset
         {
             public int pos;
@@ -106,20 +47,32 @@ namespace CourseProjectLosslessCompressionMethods.Methods.LZ77
 
         Offset GetOffset()
         {
-            int i = 0;
+            int buferIndex = 0;
+            int dictIndex = -1;
             int pos = 0;
             int count = 0;
-            while (i < buferSize && dict[i] != bufer[i])
+           for(int idict = 0; idict < dictionarySize; idict++)
             {
-                i++;
+                if(dictIndex != 0)
+                {
+                    break;
+                }
+                for(int jbufer=0; jbufer < buferSize; jbufer++)
+                {
+                    if(dict[idict] == bufer[jbufer])
+                    {
+                        dictIndex = idict;
+                        buferIndex = jbufer;
+                        break;
+                    }
+                }
             }
-            if (i != buferSize - 1)
+           if(dictIndex != -1)
             {
-                pos = i;
-                while (i < buferSize && dict[i] == bufer[i])
+                pos = dictIndex;
+                while(dict[dictIndex] == bufer[buferIndex] && buferIndex < buferSize)
                 {
                     count++;
-                    i++;
                 }
             }
             return new Offset(pos, count);
@@ -131,10 +84,6 @@ namespace CourseProjectLosslessCompressionMethods.Methods.LZ77
         }
         public void Coding()
         {
-            for (int i = 0; i < dictionarySize; i++)
-            {
-                dict.Add((char)0);
-            }
             int stringIndex = 0;
             int buferIndex = 0;
             int dictIndex = 0;
@@ -147,7 +96,6 @@ namespace CourseProjectLosslessCompressionMethods.Methods.LZ77
                 buferIndex++;
                 stringIndex++;
             }
-            buferIndex = 0;
             while (stringIndex < inputData.Length)
             {
 
@@ -155,12 +103,12 @@ namespace CourseProjectLosslessCompressionMethods.Methods.LZ77
                 int startIndex = offset.pos + ((offset.count % 10 > 0) ? offset.count - 1 : offset.count);
                 for (int i = startIndex; i >= 0; i--)
                 {
-                    dict.Add(bufer.Take0());
+                    dict.Add(bufer.TakeFirst()); dict.FillMFromDown();
                     bufer.Add(inputData[stringIndex]);
                     stringIndex++;
                 }
 
-                code += $"({offset.pos}, {offset.count} {dict[0]}\n";
+                code += $"({offset.pos}, {offset.count} {dict.LookLast()})\n";
 
             }
             Console.WriteLine(code);

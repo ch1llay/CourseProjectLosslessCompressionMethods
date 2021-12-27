@@ -24,7 +24,7 @@ namespace CourseProjectLosslessCompressionMethods
             //fileDialog.ShowDialog();
             //path = fileDialog.FileName;
             //huffman.CompressFile(path);
-            LZ77 lz77 = new LZ77("Красная краска", 12, 8);
+            LZ77 lz77 = new LZ77("красная краска", 8, 5);
             lz77.Coding();
         }
     }
