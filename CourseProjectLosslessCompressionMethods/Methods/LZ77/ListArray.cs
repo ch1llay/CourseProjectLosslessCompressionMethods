@@ -13,6 +13,8 @@ namespace CourseProjectLosslessCompressionMethods.Methods.LZ77
         List<T> l;
         int indexFromDown = 0;
         int indexFromUp = 0;
+        public int Count
+        { get => l.Count; }
         public ListArray(int size)
         {
             this.size = size;
@@ -21,7 +23,7 @@ namespace CourseProjectLosslessCompressionMethods.Methods.LZ77
 
         }
 
-        void FillM()
+        void FillMassiveFroUp()
         {
             for (int i = 0; i < l.Count; i++)
             {
@@ -34,29 +36,45 @@ namespace CourseProjectLosslessCompressionMethods.Methods.LZ77
         }
         public void FillMFromDown()
         {
-            
+            List<T> tempL = new List<T>();
+            for (int i = 0; i < l.Count; i++)
+            {
+                tempL.Add(l[i]);
+            }
+            tempL.Reverse();
+            for (int i = 0; i < tempL.Count; i++)
+            {
+                m[size - 1 - i] = tempL[i];
+            }
+            if ((int)tempL.Count < size)
+            {
+                for (int i = tempL.Count; i < size; i++)
+                {
+                    m[size - 1 - i] = default;
+                }
+            }
         }
         public void Add(T el)
         {
             if (l.Count < size)
             {
                 l.Add(el);
-                FillM();
+                FillMFromDown();
 
             }
             else
             {
-                throw new Exception("Переполнение");
+                TakeFirst();
+                Add(el);
             }
         }
-
         public T TakeFirst()
         {
             if (l.Count > 0)
             {
                 T el = l[0];
                 l.RemoveAt(0);
-                FillM();
+                FillMFromDown();
                 return el;
             }
             else

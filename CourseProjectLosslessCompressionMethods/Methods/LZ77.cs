@@ -22,7 +22,7 @@ namespace CourseProjectLosslessCompressionMethods.Methods.LZ77
         string code;
         ListArray<char> dict;
         ListArray<char> bufer;
-        public LZ77(string inputData, int dictionarySize_, int buferSize_)
+                public LZ77(string inputData, int dictionarySize_, int buferSize_)
         {
             this.inputData = inputData;
             dictionarySize = dictionarySize_;
@@ -53,26 +53,17 @@ namespace CourseProjectLosslessCompressionMethods.Methods.LZ77
             int count = 0;
            for(int idict = 0; idict < dictionarySize; idict++)
             {
-                if(dictIndex != 0)
+                if(dict[idict] == bufer[0])
                 {
-                    break;
-                }
-                for(int jbufer=0; jbufer < buferSize; jbufer++)
-                {
-                    if(dict[idict] == bufer[jbufer])
+                    dictIndex = idict;
+                    pos = dictIndex;
+                    while (dictIndex < dictionarySize && dict[dictIndex] == bufer[buferIndex] && buferIndex < buferSize)
                     {
-                        dictIndex = idict;
-                        buferIndex = jbufer;
-                        break;
+                        count++;
+                        dictIndex++;
+                        buferIndex++;
                     }
-                }
-            }
-           if(dictIndex != -1)
-            {
-                pos = dictIndex;
-                while(dict[dictIndex] == bufer[buferIndex] && buferIndex < buferSize)
-                {
-                    count++;
+                    break;
                 }
             }
             return new Offset(pos, count);
@@ -96,16 +87,18 @@ namespace CourseProjectLosslessCompressionMethods.Methods.LZ77
                 buferIndex++;
                 stringIndex++;
             }
-            while (stringIndex < inputData.Length)
+            while (stringIndex < inputData.Length || bufer.Count > 0)
             {
 
                 offset = GetOffset();
-                int startIndex = offset.pos + ((offset.count % 10 > 0) ? offset.count - 1 : offset.count);
-                for (int i = startIndex; i >= 0; i--)
+                for (int i = offset.pos; i < offset.pos+offset.count+1; i++)
                 {
-                    dict.Add(bufer.TakeFirst()); dict.FillMFromDown();
-                    bufer.Add(inputData[stringIndex]);
-                    stringIndex++;
+                    dict.Add(bufer.TakeFirst());
+                    if (stringIndex < inputData.Length)
+                    {
+                        bufer.Add(inputData[stringIndex]);
+                        stringIndex++;
+                    }
                 }
 
                 code += $"({offset.pos}, {offset.count} {dict.LookLast()})\n";
