@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,27 +19,27 @@ namespace CourseProjectLosslessCompressionMethods.Methods.LZ77
 
         static int dictionarySize;
         static int buferSize;
-        string inputData;
-        string code;
-        ListArray<char> dict;
-        ListArray<char> bufer;
-                public LZ77(string inputData, int dictionarySize_, int buferSize_)
+        byte[] inputData;
+        List<byte> code;
+        ListArray<byte> dict;
+        ListArray<byte> bufer;
+        public LZ77(int dictionarySize_, int buferSize_)
         {
-            this.inputData = inputData;
             dictionarySize = dictionarySize_;
             buferSize = buferSize_;
-            dict = new ListArray<char>(dictionarySize);
-            bufer = new ListArray<char>(buferSize);
+            dict = new ListArray<byte>(dictionarySize);
+            bufer = new ListArray<byte>(buferSize);
+            code = new List<byte>();
 
         }
 
-        
+
         class Offset
         {
-            public int pos;
-            public int count;
+            public byte pos;
+            public byte count;
 
-            public Offset(int pos, int count)
+            public Offset(byte pos, byte count)
             {
                 this.pos = pos;
                 this.count = count;
@@ -49,15 +50,15 @@ namespace CourseProjectLosslessCompressionMethods.Methods.LZ77
         {
             int buferIndex = 0;
             int dictIndex = -1;
-            int pos = 0;
-            int count = 0;
-           for(int idict = 0; idict < dictionarySize; idict++)
+            byte pos = 0;
+            byte count = 0;
+            for (int idict = 0; idict < dictionarySize; idict++)
             {
-                if(dict[idict] == bufer[0])
+                if (dict[idict] == bufer[0])
                 {
                     dictIndex = idict;
-                    pos = dictIndex;
-                    while (dictIndex < dictionarySize && dict[dictIndex] == bufer[buferIndex] && buferIndex < buferSize)
+                    pos = (byte)dictIndex;
+                    while (dictIndex < dictionarySize && buferIndex < buferSize && dict[dictIndex] == bufer[buferIndex])
                     {
                         count++;
                         dictIndex++;
@@ -69,44 +70,48 @@ namespace CourseProjectLosslessCompressionMethods.Methods.LZ77
             return new Offset(pos, count);
 
         }
-        void Slide(Offset offset)
-        {
-
-        }
         public void Coding()
         {
-            int stringIndex = 0;
+            int byteIndex = 0;
             int buferIndex = 0;
-            int dictIndex = 0;
             Offset offset;
 
             // заполнение буфера
             while (buferIndex < buferSize)
             {
-                bufer.Add(inputData[stringIndex]);
+                bufer.Add(inputData[byteIndex]);
                 buferIndex++;
-                stringIndex++;
+                byteIndex++;
             }
-            while (stringIndex < inputData.Length || bufer.Count > 0)
+            while (byteIndex < inputData.Length || bufer.Count > 0)
             {
 
                 offset = GetOffset();
-                for (int i = offset.pos; i < offset.pos+offset.count+1; i++)
+                for (int i = offset.pos; i < offset.pos + offset.count + 1; i++)
                 {
                     dict.Add(bufer.TakeFirst());
-                    if (stringIndex < inputData.Length)
+                    if (byteIndex < inputData.Length)
                     {
-                        bufer.Add(inputData[stringIndex]);
-                        stringIndex++;
+                        bufer.Add(inputData[byteIndex]);
+                        byteIndex++;
                     }
                 }
+                byte[] bytes = new byte[] { offset.pos, offset.count, dict.LookLast() };
+                foreach (byte b in bytes)
+                { 
 
-                code += $"({offset.pos}, {offset.count} {dict.LookLast()})\n";
+                    code.Add(b);
+                }
 
             }
-            Console.WriteLine(code);
         }
+        public void CompressFile(string inputFilename)
+        {
+            inputData = File.ReadAllBytes(inputFilename);
+            Coding();
 
+            File.WriteAllBytes($"{inputFilename}.lz77", code.ToArray());
+        }
 
     }
 }

@@ -18,14 +18,15 @@ namespace CourseProjectLosslessCompressionMethods
         [STAThreadAttribute]
         public static void Main()
         {
-            //Huffman huffman = new Huffman();
-            //string path = "Files/abra.txt";
-            //FileDialog fileDialog = new OpenFileDialog();
-            //fileDialog.ShowDialog();
-            //path = fileDialog.FileName;
-            //huffman.CompressFile(path);
-            LZ77 lz77 = new LZ77("красная краска", 8, 5);
-            lz77.Coding();
+            Huffman huffman = new Huffman();
+            string path = "Files/abra.txt";
+            FileDialog fileDialog = new OpenFileDialog();
+            fileDialog.ShowDialog();
+            path = fileDialog.FileName;
+            huffman.CompressFile(path);
+            LZ77 lz77 = new LZ77(80, 65);
+            lz77.CompressFile(path);
+            huffman.CompressFile($"{path}.lz77");
         }
     }
 }
