@@ -83,25 +83,33 @@ namespace CourseProjectLosslessCompressionMethods.Methods.LZ77
                 buferIndex++;
                 byteIndex++;
             }
-            while (byteIndex < inputData.Length || bufer.Count > 0)
+            int per = 0;
+            int length = inputData.Length;
+            while (bufer.Count > 0)
             {
+                if(byteIndex >  length / 3 * 2)
+                {
+                    Console.WriteLine();
+                }
+                per = (byteIndex / length * 100);
+                if (per > 0 && per % 10 == 0)
+                {
+                    Console.WriteLine(per);
+                }
 
                 offset = GetOffset();
                 for (int i = offset.pos; i < offset.pos + offset.count + 1; i++)
                 {
                     dict.Add(bufer.TakeFirst());
-                    if (byteIndex < inputData.Length)
+                    if (byteIndex < length)
                     {
                         bufer.Add(inputData[byteIndex]);
                         byteIndex++;
                     }
                 }
-                byte[] bytes = new byte[] { offset.pos, offset.count, dict.LookLast() };
-                foreach (byte b in bytes)
-                { 
-
-                    code.Add(b);
-                }
+                code.Add(offset.pos);
+                code.Add(offset.count);
+                code.Add(dict.LookLast());
 
             }
         }
