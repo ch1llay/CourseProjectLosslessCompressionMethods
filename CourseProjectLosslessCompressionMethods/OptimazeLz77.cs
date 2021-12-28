@@ -39,6 +39,7 @@ namespace CourseProjectLosslessCompressionMethods
     class OptimazeLz77
     {
         string inputData;
+        int sizeInputData;
         static int buferSize;
         static int dictSize;
         Part bufer;
@@ -52,6 +53,7 @@ namespace CourseProjectLosslessCompressionMethods
             code = new List<string>();
             bufer = new Part(buferSize, -1, -buferSize);
             dict = new Part(dictSize, -buferSize - 1, -buferSize - 1 - dictSize);
+            sizeInputData = inputData.Length;
 
         }
         void CommonSlide(int count)
@@ -67,14 +69,14 @@ namespace CourseProjectLosslessCompressionMethods
             {
                 int dictIndex = (dict.Tail >= 0) ? -1 : -dict.Tail-1;
                 int tempDictIndex = (dict.Tail >= 0) ? dict.Tail : 0;
-                for (int idict = tempDictIndex; idict <= dict.Head && idict >= 0; idict++, dictIndex++)
+                for (int idict = tempDictIndex; idict <= dict.Head; idict++, dictIndex++)
                 {
                     if (inputData[idict] == inputData[bufer.Tail])
                     {
                         tempDictIndex = idict;
                         int buferIndex = bufer.Tail;
                         pos = (byte)dictIndex;
-                        while (idict < dict.Head && buferIndex < bufer.Head && inputData[tempDictIndex] == inputData[buferIndex])
+                        while (idict < dict.Head && buferIndex < bufer.Head && buferIndex < sizeInputData-1 && inputData[tempDictIndex] == inputData[buferIndex])
                         {
                             count++;
                             tempDictIndex++;
@@ -90,10 +92,10 @@ namespace CourseProjectLosslessCompressionMethods
         {
             Offset offset;
             CommonSlide(buferSize);
-            while (dict.Tail < inputData.Length)
+            while (dict.Head < sizeInputData-1)
             {
                 offset = GetOffset();
-                CommonSlide(offset.count+1);
+                CommonSlide(offset.count + 1);
                 code.Add($"({offset.pos} {offset.count} {inputData[dict.Head]}");
 
             }
