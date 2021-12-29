@@ -85,7 +85,7 @@ namespace CourseProjectLosslessCompressionMethods
                     }
                 }
             }
-            if(count == 0)
+            if (count == 0)
             {
                 pos = 0;
             }
@@ -94,15 +94,29 @@ namespace CourseProjectLosslessCompressionMethods
         string to2(byte n)
         {
             string s = Convert.ToString(n, 2);
+            int lengthOn1 = CountBit(dictSize);
+            int length = s.Length;
+            int countGroupForLength = (int)Math.Ceiling((double)length / (double)lengthOn1);
+            if(length < countGroupForLength*lengthOn1)
+            {
+                for(int i = 0; i < countGroupForLength * lengthOn1 - length; i++)
+                {
+                    s = s.Insert(0, "0");
+                }
+            }
             return s;
 
 
         }
+        int CountBit(int value){
+            return (int)Math.Ceiling(Math.Log(value, 2));
+        }
         byte[] Bits2Bytes()
         {
             byte sum = 0;
-            byte bit = 1;
+            byte bit = 128;
             List<byte> bits = new List<byte>();
+            
             foreach (byte[] data in code)
             {
                 foreach (byte b in data)
@@ -113,15 +127,15 @@ namespace CourseProjectLosslessCompressionMethods
                         {
                             sum |= bit;
                         }
-                        if (bit < 128)
+                        if (bit > 1)
                         {
-                            bit <<= 1;
+                            bit >>= 1;
                         }
                         else
                         {
                             bits.Add(sum);
                             sum = 0;
-                            bit = 1;
+                            bit = 128;
                         }
 
                     }
