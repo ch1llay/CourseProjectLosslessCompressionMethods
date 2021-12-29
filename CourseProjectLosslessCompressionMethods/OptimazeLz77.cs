@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -119,9 +120,10 @@ namespace CourseProjectLosslessCompressionMethods
             
             foreach (byte[] data in code)
             {
-                foreach (byte b in data)
+
+                for (int i = 0; i < 2; i++)
                 {
-                    foreach (var c in to2(b))
+                    foreach (var c in to2(data[i]))
                     {
                         if (c == '1')
                         {
@@ -140,8 +142,10 @@ namespace CourseProjectLosslessCompressionMethods
 
                     }
                 }
+                bits.Add(data[2]);
             }
             return bits.ToArray();
+            
         }
         public void CompressFile(string inputFilename)
         {
@@ -161,7 +165,7 @@ namespace CourseProjectLosslessCompressionMethods
                 offset = GetOffset();
                 CommonSlide(offset.count + 1);
                 byte[] tempBytes = new byte[] { offset.pos, offset.count, inputData[dict.Head] };
-                Console.WriteLine($"({offset.pos}, {offset.count}, {(char)inputData[dict.Head]})");
+                Console.WriteLine($"({offset.pos}, {offset.count}, {inputData[dict.Head]})");
                 code.Add(tempBytes);
 
             }
