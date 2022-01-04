@@ -53,7 +53,7 @@ namespace CourseProjectLosslessCompressionMethods
             dictSize = dictSize_;
             code = new List<byte[]>();
             bufer = new Part(buferSize, -1, -buferSize);
-            dict = new Part(dictSize, -buferSize - 1, -buferSize - 1 - dictSize);
+            dict = new Part(dictSize, -buferSize - 1, -buferSize - dictSize);
 
         }
         void CommonSlide(int count)
@@ -67,7 +67,7 @@ namespace CourseProjectLosslessCompressionMethods
             byte pos = 0;
             if (dict.Head >= 0)
             {
-                int dictIndex = (dict.Tail >= 0) ? -1 : -dict.Tail - 1;
+                int dictIndex = (dict.Tail >= 0) ? 0 : -dict.Tail;
                 int tempDictIndex = (dict.Tail >= 0) ? dict.Tail : 0;
                 for (int idict = tempDictIndex; idict <= dict.Head; idict++, dictIndex++)
                 {
@@ -76,7 +76,7 @@ namespace CourseProjectLosslessCompressionMethods
                         tempDictIndex = idict;
                         int buferIndex = bufer.Tail;
                         pos = (byte)dictIndex;
-                        while (idict < dict.Head && buferIndex < bufer.Head && buferIndex < sizeInputData - 1 && inputData[tempDictIndex] == inputData[buferIndex])
+                        while (tempDictIndex < dict.Head && buferIndex < bufer.Head && buferIndex < sizeInputData - 1 && inputData[tempDictIndex] == inputData[buferIndex])
                         {
                             count++;
                             tempDictIndex++;
@@ -137,9 +137,11 @@ namespace CourseProjectLosslessCompressionMethods
             }
             void WriteBits(byte v, int countBit)
             {
-                for (int j = 0; j < countBit; j++)
+                string s = "";
+                for (int j = countBit-1; j >= 0; j--)
                 {
                     int c = (v >> j) & 1;
+                    s += c;
                     if (c > 0)
                     {
                         sum |= bit;
@@ -156,6 +158,10 @@ namespace CourseProjectLosslessCompressionMethods
                     }
 
                 }
+            }
+            if(sum > 0)
+            {
+                bits.Add(sum);
             }
             return bits.ToArray();
             
