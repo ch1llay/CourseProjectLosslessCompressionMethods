@@ -95,54 +95,67 @@ namespace CourseProjectLosslessCompressionMethods
         string to2(byte n)
         {
             string s = Convert.ToString(n, 2);
-            int lengthOn1 = CountBit(dictSize);
-            int length = s.Length;
-            int countGroupForLength = (int)Math.Ceiling((double)length / (double)lengthOn1);
-            if(length < countGroupForLength*lengthOn1)
-            {
-                for(int i = 0; i < countGroupForLength * lengthOn1 - length; i++)
-                {
-                    s = s.Insert(0, "0");
-                }
-            }
+            //int lengthOn1 = CountBit(dictSize);
+            //int length = s.Length;
+            //int countGroupForLength = (int)Math.Ceiling((double)length / (double)lengthOn1);
+            //if(length < countGroupForLength*lengthOn1)
+            //{
+            //    for(int i = 0; i < countGroupForLength * lengthOn1 - length; i++)
+            //    {
+            //        s = s.Insert(0, "0");
+            //    }
+            //}
             return s;
 
 
         }
-        int CountBit(int value){
+        int CountBit(int value) {
+            if(value < 2)
+            {
+                return 1;
+            }
+            if(value == 2)
+            {
+                return 2;
+            }
             return (int)Math.Ceiling(Math.Log(value, 2));
         }
         byte[] Bits2Bytes()
         {
             byte sum = 0;
             byte bit = 128;
+            int bitsAmount = (int)Math.Log(Math.Min(buferSize, dictSize), 2) + 1;
             List<byte> bits = new List<byte>();
+            byte tempByte;
             
             foreach (byte[] data in code)
             {
 
-                for (int i = 0; i < 2; i++)
+                WriteBits(data[0], CountBit(dictSize));
+                WriteBits(data[1], CountBit(buferSize));
+                WriteBits(data[2],  8);
+            }
+            void WriteBits(byte v, int countBit)
+            {
+                for (int j = 0; j < countBit; j++)
                 {
-                    foreach (var c in to2(data[i]))
+                    int c = (v >> j) & 1;
+                    if (c > 0)
                     {
-                        if (c == '1')
-                        {
-                            sum |= bit;
-                        }
-                        if (bit > 1)
-                        {
-                            bit >>= 1;
-                        }
-                        else
-                        {
-                            bits.Add(sum);
-                            sum = 0;
-                            bit = 128;
-                        }
-
+                        sum |= bit;
                     }
+                    if (bit > 0)
+                    {
+                        bit >>= 1;
+                    }
+                    if(bit == 0)
+                    {
+                        bits.Add(sum);
+                        sum = 0;
+                        bit = 128;
+                    }
+
                 }
-                bits.Add(data[2]);
             }
             return bits.ToArray();
             
@@ -165,7 +178,7 @@ namespace CourseProjectLosslessCompressionMethods
                 offset = GetOffset();
                 CommonSlide(offset.count + 1);
                 byte[] tempBytes = new byte[] { offset.pos, offset.count, inputData[dict.Head] };
-                Console.WriteLine($"({offset.pos}, {offset.count}, {inputData[dict.Head]})");
+                Console.WriteLine($"({offset.pos}, {offset.count}, {(char)inputData[dict.Head]})");
                 code.Add(tempBytes);
 
             }
