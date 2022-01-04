@@ -24,7 +24,7 @@ namespace CourseProjectLosslessCompressionMethods
             fileDialog.ShowDialog();
             path = fileDialog.FileName;
             huffman.CompressFile(path);
-            OptimazeLz77 optimazeLz77 = new OptimazeLz77(5, 8);
+            OptimazeLz77 optimazeLz77 = new OptimazeLz77(4, 1 << 9);
             optimazeLz77.CompressFile(path);
             huffman.CompressFile($"{path}.lz77");
         }

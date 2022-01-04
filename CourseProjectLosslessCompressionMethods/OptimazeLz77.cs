@@ -137,11 +137,9 @@ namespace CourseProjectLosslessCompressionMethods
             }
             void WriteBits(byte v, int countBit)
             {
-                string s = "";
                 for (int j = countBit-1; j >= 0; j--)
                 {
                     int c = (v >> j) & 1;
-                    s += c;
                     if (c > 0)
                     {
                         sum |= bit;
@@ -184,7 +182,7 @@ namespace CourseProjectLosslessCompressionMethods
                 offset = GetOffset();
                 CommonSlide(offset.count + 1);
                 byte[] tempBytes = new byte[] { offset.pos, offset.count, inputData[dict.Head] };
-                Console.WriteLine($"({offset.pos}, {offset.count}, {(char)inputData[dict.Head]})");
+                // Console.WriteLine($"({offset.pos}, {offset.count}, {(char)inputData[dict.Head]})");
                 code.Add(tempBytes);
 
             }
