@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using CourseProjectLosslessCompressionMethods.Methods.Huffman;
 using CourseProjectLosslessCompressionMethods.Methods.LZ77;
-using CourseProjectLosslessCompressionMethods.Methods.Deflate;
 using System.Windows.Forms;
 
 namespace CourseProjectLosslessCompressionMethods
@@ -24,7 +23,7 @@ namespace CourseProjectLosslessCompressionMethods
             fileDialog.ShowDialog();
             path = fileDialog.FileName;
             huffman.CompressFile(path);
-            OptimazeLz77 optimazeLz77 = new OptimazeLz77(4, 1 << 9);
+            LZ77 optimazeLz77 = new LZ77(1 << 12);
             optimazeLz77.CompressFile(path);
             huffman.CompressFile($"{path}.lz77");
         }
