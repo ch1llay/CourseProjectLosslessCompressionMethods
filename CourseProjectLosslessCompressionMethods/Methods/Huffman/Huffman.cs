@@ -64,6 +64,7 @@ namespace CourseProjectLosslessCompressionMethods.Methods.Huffman
 
         byte[] Compress(byte[] data)
         {
+            BitList bitList = new BitList();
             List<byte> bits = new List<byte>();
             byte sum = 0;
             byte bit = 1;
@@ -71,6 +72,7 @@ namespace CourseProjectLosslessCompressionMethods.Methods.Huffman
             {
                 foreach(char c in codes[symbol])
                 {
+                    bitList.Write((c == '1')? true : false);
                     if(c == '1')
                     {
                         sum |= bit;
@@ -91,6 +93,10 @@ namespace CourseProjectLosslessCompressionMethods.Methods.Huffman
             {
                 bits.Add(sum);
             }
+            int s1 = bitList.GetBytes();
+
+            int s2 = bits.ToArray().Length;
+
             return bits.ToArray();
         }
         private void CreateHuffmanCodes()

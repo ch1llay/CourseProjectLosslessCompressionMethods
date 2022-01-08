@@ -12,10 +12,10 @@ namespace CourseProjectLosslessCompressionMethods.Methods.LZ77
 
     class Offset
     {
-        public int pos;
-        public int count;
+        public byte pos;
+        public byte count;
 
-        public Offset(int pos, int count)
+        public Offset(byte pos, byte count)
         {
             this.pos = pos;
             this.count = count;
@@ -41,8 +41,8 @@ namespace CourseProjectLosslessCompressionMethods.Methods.LZ77
         }
         Offset GetOffset(int currentPos)
         {
-            int count = 0;
-            int pos = 0;
+            byte count = 0;
+            byte pos = 0;
             int end = Math.Min(currentPos + LOOK_AHEAD_BUFFER_SIZE, inputDataSize + 1);
             for (int j = currentPos + 2; j < end; j++)
             {
@@ -55,7 +55,7 @@ namespace CourseProjectLosslessCompressionMethods.Methods.LZ77
                 {
                     int repeat = bytesToMatchLength / (currentPos - i);
                     int remaining = bytesToMatchLength % (currentPos - i);
-                    byte[] tempArray = new byte[(currentPos - i) * repeat + (i + remaining)];
+                    byte[] tempArray = new byte[(currentPos - i) * repeat + (remaining)];
                     int m = 0;
                     int destPos;
                     for (; m < repeat; m++)
@@ -65,50 +65,52 @@ namespace CourseProjectLosslessCompressionMethods.Methods.LZ77
                     }
                     destPos = m * (currentPos - i);
                     Array.Copy(inputData, i, tempArray, destPos, remaining);
-                    if (Array.Equals(tempArray, bytesToMatch))
+                    if (tempArray.SequenceEqual(bytesToMatch))
                     {
-                        count = bytesToMatchLength;
-                        pos = currentPos - i;
+                        count = (byte)bytesToMatchLength;
+                        pos = (byte)(currentPos - i);
                     }
 
                 }
             }
-            return new Offset(pos, count);
+            if(pos > 0 && count > 0)
+            {
+                return new Offset(pos, count);
+            }
+            return null;
         }
-        public void CompressFile(string inputFilename)
+        public int Compress(string inputFilename)
         {
             inputData = File.ReadAllBytes(inputFilename);
             inputDataSize = inputData.Length;
-            byte[] outputData = Compress();
-            File.WriteAllBytes($"{inputFilename}.lz77", outputData);
+            int outputData = Compress();
+            return outputData;
+
 
         }
-        public byte[] Compress()
+        public int Compress()
         {
-            BitList bitList = new BitList();
+            BitList output = new BitList();
+
             Offset offset;
             for (int i = 0; i < inputDataSize;)
             {
-                if(i > 100000)
-                {
-
-                }
                 offset = GetOffset(i);
-                if (offset.count != 0)
+                if (offset != null)
                 {
-                    bitList.Write(true);
-                    bitList.Write((byte)(offset.pos >> 4));
-                    bitList.Write((byte)(((offset.pos & 0x0F) << 4) | offset.count));
+                    output.Write(true);
+                    output.Write((byte)(offset.pos >> 4));
+                    output.Write((byte)((offset.pos & 0xf) << 4| offset.count));
                     i += offset.count;
                 }
                 else
                 {
-                    bitList.Write(false);
-                    bitList.Write(inputData[i]);
+                    output.Write(false);
+                    output.Write(inputData[i]);
                     i++;
                 }
             }
-            return bitList.GetBytes();
+            return output.GetBytes();
         }
 
     }

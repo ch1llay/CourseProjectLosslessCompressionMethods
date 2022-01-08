@@ -58,8 +58,9 @@
     <Compile Include="GraphicResult.Designer.cs">
       <DependentUpon>GraphicResult.cs</DependentUpon>
     </Compile>
+    <Compile Include="Methods\Deflate\Deflate.cs" />
     <Compile Include="Methods\Huffman\PriorityQueue.cs" />
-    <Compile Include="Methods\LZ77\BitList.cs" />
+    <Compile Include="Methods\BitList.cs" />
     <Compile Include="Methods\LZ77\LZ77.cs" />
     <Compile Include="TableResult.cs">
       <SubType>Form</SubType>
@@ -97,7 +98,12 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\Debug\Files\125491-30715.jpg" />
+    <Content Include="bin\Debug\Files\974avatar.png" />
     <Content Include="bin\Debug\Files\file-compressed.txt" />
+    <Content Include="bin\Debug\Files\photo-thumb-181360.gif" />
+    <Content Include="bin\Debug\Files\photo-thumb-21954.jpg" />
+    <Content Include="bin\Debug\Files\sample_640×426.bmp" />
     <Content Include="bin\Debug\Files\voyna-i-mir-tom-1.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

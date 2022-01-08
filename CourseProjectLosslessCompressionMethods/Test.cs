@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using CourseProjectLosslessCompressionMethods.Methods.Huffman;
 using CourseProjectLosslessCompressionMethods.Methods.LZ77;
 using System.Windows.Forms;
+using CourseProjectLosslessCompressionMethods.Methods.Deflate;
 
 namespace CourseProjectLosslessCompressionMethods
 {
@@ -23,9 +24,10 @@ namespace CourseProjectLosslessCompressionMethods
             fileDialog.ShowDialog();
             path = fileDialog.FileName;
             huffman.CompressFile(path);
-            LZ77 optimazeLz77 = new LZ77(1 << 12);
-            optimazeLz77.CompressFile(path);
-            huffman.CompressFile($"{path}.lz77");
+            LZ77 LZ77 = new LZ77(2048);
+            Console.WriteLine($"LZ77 {LZ77.Compress(path)}");
+            // Deflate deflate = new Deflate();
+            Console.WriteLine(Deflate.Compress(path, path + ".deflate"));
         }
     }
 }

@@ -4,18 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CourseProjectLosslessCompressionMethods.Methods.LZ77
+namespace CourseProjectLosslessCompressionMethods.Methods
 {
     public class BitList
     {
-        List<byte> bits = new List<byte>();
+        //List<byte> bits = new List<byte>();
+        int countByte;
         byte bit;
         byte sum;
 
         public BitList()
         {
-            bit = 128;
+            bit = 1;
             sum = 0;
+            countByte = 0;
         }
 
         public void Write(bool c)
@@ -24,33 +26,34 @@ namespace CourseProjectLosslessCompressionMethods.Methods.LZ77
             {
                 sum |= bit;
             }
-            if (bit > 0)
+            if (bit < 128)
             {
-                bit >>= 1;
+                bit <<= 1;
             }
-            if (bit == 0)
+            else
             {
-                bits.Add(sum);
+                countByte++;
                 sum = 0;
-                bit = 128;
+                bit = 1;
             }
 
         }
 
-        public void Write(byte n)
+        public void Write(byte n, int countBit= 7)
         {
-            for (int i = 7; i >= 0; i--)
+            for (int i = 0; i <= countBit; i++)
             {
                 Write((n >> i & 1) > 0 ? true : false);
             }
         }
-        public byte[] GetBytes()
+        public int GetBytes()
         {
             if (sum > 0)
             {
-                bits.Add(sum);
+                countByte++;
             }
-            return bits.ToArray();
+            
+            return countByte;
         }
     }
 }
