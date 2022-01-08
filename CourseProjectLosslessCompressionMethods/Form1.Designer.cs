@@ -33,11 +33,12 @@ namespace CourseProjectLosslessCompressionMethods
             this.beginCompareButton = new System.Windows.Forms.Button();
             this.showResultsInTable = new System.Windows.Forms.Button();
             this.showResultsInGraphic = new System.Windows.Forms.Button();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.SuspendLayout();
             // 
             // importFilesButton
             // 
-            this.importFilesButton.Location = new System.Drawing.Point(15, 35);
+            this.importFilesButton.Location = new System.Drawing.Point(15, 5);
             this.importFilesButton.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.importFilesButton.Name = "importFilesButton";
             this.importFilesButton.Size = new System.Drawing.Size(322, 147);
@@ -48,37 +49,54 @@ namespace CourseProjectLosslessCompressionMethods
             // 
             // beginCompareButton
             // 
-            this.beginCompareButton.Location = new System.Drawing.Point(34, 212);
+            this.beginCompareButton.Location = new System.Drawing.Point(12, 176);
             this.beginCompareButton.Name = "beginCompareButton";
             this.beginCompareButton.Size = new System.Drawing.Size(275, 138);
             this.beginCompareButton.TabIndex = 1;
             this.beginCompareButton.Text = "Начать сравнение";
             this.beginCompareButton.UseVisualStyleBackColor = true;
+            this.beginCompareButton.Click += new System.EventHandler(this.beginCompareButton_Click);
             // 
             // showResultsInTable
             // 
-            this.showResultsInTable.Location = new System.Drawing.Point(109, 390);
+            this.showResultsInTable.Location = new System.Drawing.Point(313, 177);
             this.showResultsInTable.Name = "showResultsInTable";
-            this.showResultsInTable.Size = new System.Drawing.Size(280, 183);
+            this.showResultsInTable.Size = new System.Drawing.Size(193, 137);
             this.showResultsInTable.TabIndex = 2;
             this.showResultsInTable.Text = "Показать результаты в таблице";
             this.showResultsInTable.UseVisualStyleBackColor = true;
             // 
             // showResultsInGraphic
             // 
-            this.showResultsInGraphic.Location = new System.Drawing.Point(579, 415);
+            this.showResultsInGraphic.Location = new System.Drawing.Point(346, 5);
             this.showResultsInGraphic.Name = "showResultsInGraphic";
             this.showResultsInGraphic.Size = new System.Drawing.Size(194, 132);
             this.showResultsInGraphic.TabIndex = 3;
             this.showResultsInGraphic.Text = "Показать результаты на графике";
             this.showResultsInGraphic.UseVisualStyleBackColor = true;
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 3;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 36.80241F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 63.19759F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 179F));
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(28, 361);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(684, 149);
+            this.tableLayoutPanel1.TabIndex = 4;
+            this.tableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.OliveDrab;
-            this.ClientSize = new System.Drawing.Size(1924, 1022);
+            this.ClientSize = new System.Drawing.Size(818, 648);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.showResultsInGraphic);
             this.Controls.Add(this.showResultsInTable);
             this.Controls.Add(this.beginCompareButton);
@@ -98,6 +116,7 @@ namespace CourseProjectLosslessCompressionMethods
         private System.Windows.Forms.Button beginCompareButton;
         private System.Windows.Forms.Button showResultsInTable;
         private System.Windows.Forms.Button showResultsInGraphic;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }
 

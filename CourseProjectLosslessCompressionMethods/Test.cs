@@ -15,19 +15,19 @@ namespace CourseProjectLosslessCompressionMethods
     
     class Test
     {
-        [STAThreadAttribute]
-        public static void Main()
+        //[STAThreadAttribute]
+        public static void Main1()
         {
-            Huffman huffman = new Huffman();
-            string path = "Files/abra.txt";
-            FileDialog fileDialog = new OpenFileDialog();
-            fileDialog.ShowDialog();
-            path = fileDialog.FileName;
-            huffman.CompressFile(path);
-            LZ77 LZ77 = new LZ77(2048);
-            Console.WriteLine($"LZ77 {LZ77.Compress(path)}");
-            // Deflate deflate = new Deflate();
-            Console.WriteLine(Deflate.Compress(path, path + ".deflate"));
+            //Huffman huffman = new Huffman();
+            //string path = "Files/abra.txt";
+            //FileDialog fileDialog = new OpenFileDialog();
+            //fileDialog.ShowDialog();
+            //path = fileDialog.FileName;
+            //huffman.CompressFile(path);
+            //LZ77 LZ77 = new LZ77(2048);
+            //Console.WriteLine($"LZ77 {LZ77.Compress(path)}");
+            //Deflate deflate = new Deflate();
+            //Console.WriteLine(Deflate.Compress(path, path + ".deflate"));
         }
     }
 }

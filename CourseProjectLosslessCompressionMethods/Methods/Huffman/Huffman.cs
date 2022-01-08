@@ -36,19 +36,13 @@ namespace CourseProjectLosslessCompressionMethods.Methods.Huffman
         string[] codes = new string[256]; // массив кодов для каждого байта
         byte[] data; //  входные данные
         
-        public void CompressFile(string dataFilename)
-        {
-            byte[] data = File.ReadAllBytes(dataFilename);
-            byte[] arhData = CompressBytes(data);
 
-            File.WriteAllBytes($"{dataFilename}.huf", arhData);
-        }
-        byte[] CompressBytes(byte[] data)
+        public byte[] Compress(byte[] data)
         {
             GetFreqsSymbols(data);
             root = CreateHuffmanTree();
             CreateHuffmanCodes();
-            byte[] compressedBytes = Compress(data);
+            byte[] compressedBytes = Compressing(data);
             // byte[] head = CreateHeader(data.Length);
             return compressedBytes;
         }
@@ -62,7 +56,7 @@ namespace CourseProjectLosslessCompressionMethods.Methods.Huffman
         //    head.Add((byte)((dataLength  >> 24)& 255));
         //}
 
-        byte[] Compress(byte[] data)
+        byte[] Compressing(byte[] data)
         {
             BitList bitList = new BitList();
             List<byte> bits = new List<byte>();
@@ -93,9 +87,8 @@ namespace CourseProjectLosslessCompressionMethods.Methods.Huffman
             {
                 bits.Add(sum);
             }
-            int s1 = bitList.GetBytes();
 
-            int s2 = bits.ToArray().Length;
+
 
             return bits.ToArray();
         }

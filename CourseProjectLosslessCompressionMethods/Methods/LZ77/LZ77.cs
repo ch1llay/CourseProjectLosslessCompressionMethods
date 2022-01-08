@@ -79,20 +79,12 @@ namespace CourseProjectLosslessCompressionMethods.Methods.LZ77
             }
             return null;
         }
-        public int Compress(string inputFilename)
-        {
-            inputData = File.ReadAllBytes(inputFilename);
-            inputDataSize = inputData.Length;
-            int outputData = Compress();
-            return outputData;
-
-
-        }
-        public int Compress()
+        public int Compress(byte[] inputData)
         {
             BitList output = new BitList();
 
             Offset offset;
+            this.inputData = inputData;
             for (int i = 0; i < inputDataSize;)
             {
                 offset = GetOffset(i);

@@ -12,7 +12,7 @@ namespace CourseProjectLosslessCompressionMethods
         /// Главная точка входа для приложения.
         /// </summary>
         [STAThread]
-        static void main()
+        static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
