@@ -46,6 +46,7 @@ namespace CourseProjectLosslessCompressionMethods
             Stopwatch stopwatch = new Stopwatch();
             Huffman huffman = new Huffman();
             byte[] inputData = File.ReadAllBytes(path);
+            
             stopwatch.Start();
             huffmanDegree = (double)huffman.Compress(inputData).Length / (double)inputData.Length;
             stopwatch.Stop();
@@ -64,7 +65,6 @@ namespace CourseProjectLosslessCompressionMethods
             stopwatch.Stop();
             deflateTime = stopwatch.ElapsedMilliseconds;
             stopwatch.Reset();
-            tableLayoutPanel1
 
 
         }

@@ -6,28 +6,27 @@ using System.Text;
 using System.Threading.Tasks;
 using CourseProjectLosslessCompressionMethods.Methods.Huffman;
 using CourseProjectLosslessCompressionMethods.Methods.LZ77;
-using System.Windows.Forms;
 using CourseProjectLosslessCompressionMethods.Methods.Deflate;
+using System.Windows.Forms;
 
 namespace CourseProjectLosslessCompressionMethods
 {
     
     
-    class Test
-    {
-        //[STAThreadAttribute]
-        public static void Main1()
-        {
-            //Huffman huffman = new Huffman();
-            //string path = "Files/abra.txt";
-            //FileDialog fileDialog = new OpenFileDialog();
-            //fileDialog.ShowDialog();
-            //path = fileDialog.FileName;
-            //huffman.CompressFile(path);
-            //LZ77 LZ77 = new LZ77(2048);
-            //Console.WriteLine($"LZ77 {LZ77.Compress(path)}");
-            //Deflate deflate = new Deflate();
-            //Console.WriteLine(Deflate.Compress(path, path + ".deflate"));
-        }
-    }
+    //class Test
+    //{
+    //    [STAThreadAttribute]
+    //    public static void Main()
+    //    {
+    //        Huffman huffman = new Huffman();
+    //        string path = "Files/abra.txt";
+    //        FileDialog fileDialog = new OpenFileDialog();
+    //        fileDialog.ShowDialog();
+    //        path = fileDialog.FileName;
+    //        huffman.CompressFile(path);
+    //        OptimazeLz77 optimazeLz77 = new OptimazeLz77(4, 1 << 9);
+    //        optimazeLz77.CompressFile(path);
+    //        huffman.CompressFile($"{path}.lz77");
+    //    }
+    //}
 }
