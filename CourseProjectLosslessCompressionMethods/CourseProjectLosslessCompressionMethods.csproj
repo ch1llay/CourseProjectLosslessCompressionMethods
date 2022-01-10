@@ -63,6 +63,7 @@
     <Compile Include="Methods\Huffman\PriorityQueue.cs" />
     <Compile Include="Methods\BitList.cs" />
     <Compile Include="Methods\LZ77\LZ77.cs" />
+    <Compile Include="Methods\LZ77\LZ77Test.cs" />
     <Compile Include="TableResult.cs">
       <SubType>Form</SubType>
     </Compile>

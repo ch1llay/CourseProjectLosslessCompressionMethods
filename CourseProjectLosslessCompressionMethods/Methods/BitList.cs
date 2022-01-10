@@ -15,7 +15,7 @@ namespace CourseProjectLosslessCompressionMethods.Methods
 
         public BitList()
         {
-            bit = 1;
+            bit = 128;
             sum = 0;
             countByte = 0;
         }
@@ -26,15 +26,15 @@ namespace CourseProjectLosslessCompressionMethods.Methods
             {
                 sum |= bit;
             }
-            if (bit < 128)
+            if (bit > 0)
             {
-                bit <<= 1;
+                bit >>= 1;
             }
-            else
+            if(bit == 0)
             {
                 countByte++;
                 sum = 0;
-                bit = 1;
+                bit = 128;
             }
 
         }

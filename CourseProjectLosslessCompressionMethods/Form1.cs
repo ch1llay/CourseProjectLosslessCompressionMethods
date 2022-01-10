@@ -22,6 +22,7 @@ namespace CourseProjectLosslessCompressionMethods
             InitializeComponent();
         }
 
+        GraphicResult graphicResult = new GraphicResult();
         string path;
         long huffmanTime;
         double huffmanDegree;
@@ -46,25 +47,26 @@ namespace CourseProjectLosslessCompressionMethods
             Stopwatch stopwatch = new Stopwatch();
             Huffman huffman = new Huffman();
             byte[] inputData = File.ReadAllBytes(path);
-            
+
             stopwatch.Start();
             huffmanDegree = (double)huffman.Compress(inputData).Length / (double)inputData.Length;
             stopwatch.Stop();
             huffmanTime = stopwatch.ElapsedMilliseconds;
             stopwatch.Reset();
 
-            LZ77 lZ77 = new LZ77(2048);
+            LZ77 lZ77 = new LZ77(100);
             stopwatch.Start();
-            lz77Degree = (double)lZ77.Compress(inputData) / (double)inputData.Length;
+            lz77Degree = (double)lZ77.Compress(inputData)/ (double)inputData.Length;
             stopwatch.Stop();
             lz77Time = stopwatch.ElapsedMilliseconds;
             stopwatch.Reset();
 
             stopwatch.Start();
-            deflateDegree = (double)Deflate.Compress(path, path+".deflate") / (double)inputData.Length;
+            deflateDegree = (double)Deflate.Compress(path, path + ".deflate") / (double)inputData.Length;
             stopwatch.Stop();
             deflateTime = stopwatch.ElapsedMilliseconds;
             stopwatch.Reset();
+            MessageBox.Show("Сравнение прошло успешно");
 
 
         }
@@ -72,6 +74,29 @@ namespace CourseProjectLosslessCompressionMethods
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void showResultsInTable_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void showResultsInGraphic_Click(object sender, EventArgs e)
+        {
+
+            if (graphicResult.IsDisposed)
+            {
+                graphicResult = new GraphicResult();
+                
+            }
+            
+            //graphicResult = new GraphicResult();
+            if (!graphicResult.IsHandleCreated)
+            {
+                graphicResult.AddData(huffmanTime, huffmanDegree, lz77Time, lz77Degree, deflateTime, deflateDegree);
+                graphicResult.Show();
+            }
+            
         }
     }
 }
