@@ -54,7 +54,7 @@ namespace CourseProjectLosslessCompressionMethods
             huffmanTime = stopwatch.ElapsedMilliseconds;
             stopwatch.Reset();
 
-            LZ77 lZ77 = new LZ77(100);
+            LZ77 lZ77 = new LZ77(4095);
             stopwatch.Start();
             lz77Degree = (double)lZ77.Compress(inputData)/ (double)inputData.Length;
             stopwatch.Stop();

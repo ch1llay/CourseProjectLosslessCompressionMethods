@@ -35,8 +35,8 @@ namespace CourseProjectLosslessCompressionMethods.Methods.Huffman
         Node root;
         string[] codes = new string[256]; // массив кодов для каждого байта
         byte[] data; //  входные данные
-        
-        
+
+
         public void CompressFile(string dataFilename)
         {
             byte[] data = File.ReadAllBytes(dataFilename);
@@ -63,20 +63,20 @@ namespace CourseProjectLosslessCompressionMethods.Methods.Huffman
         //    head.Add((byte)((dataLength  >> 24)& 255));
         //}
 
-         byte[] CompressBytes(byte[] data)
+        byte[] CompressBytes(byte[] data)
         {
             List<byte> bits = new List<byte>();
             byte sum = 0;
             byte bit = 1;
-            foreach(byte symbol in data)
+            foreach (byte symbol in data)
             {
-                foreach(char c in codes[symbol])
+                foreach (char c in codes[symbol])
                 {
-                    if(c == '1')
+                    if (c == '1')
                     {
                         sum |= bit;
                     }
-                    if(bit < 128)
+                    if (bit < 128)
                     {
                         bit <<= 1;
                     }
@@ -99,7 +99,7 @@ namespace CourseProjectLosslessCompressionMethods.Methods.Huffman
             Next(root, "");
             void Next(Node node, string code)
             {
-                if(node.bit0 == null)
+                if (node.bit0 == null)
                 {
                     codes[node.symbol] = code;
                 }
