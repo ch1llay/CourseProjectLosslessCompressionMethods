@@ -32,22 +32,23 @@ namespace CourseProjectLosslessCompressionMethods
             this.importFilesButton = new System.Windows.Forms.Button();
             this.beginCompareButton = new System.Windows.Forms.Button();
             this.showResultsInGraphic = new System.Windows.Forms.Button();
+            this.fileNameLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // importFilesButton
             // 
-            this.importFilesButton.Location = new System.Drawing.Point(15, 5);
+            this.importFilesButton.Location = new System.Drawing.Point(15, 1);
             this.importFilesButton.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.importFilesButton.Name = "importFilesButton";
-            this.importFilesButton.Size = new System.Drawing.Size(322, 147);
+            this.importFilesButton.Size = new System.Drawing.Size(179, 99);
             this.importFilesButton.TabIndex = 0;
-            this.importFilesButton.Text = "Импортировать файлы";
+            this.importFilesButton.Text = "Импортировать файл";
             this.importFilesButton.UseVisualStyleBackColor = true;
             this.importFilesButton.Click += new System.EventHandler(this.button1_Click);
             // 
             // beginCompareButton
             // 
-            this.beginCompareButton.Location = new System.Drawing.Point(28, 160);
+            this.beginCompareButton.Location = new System.Drawing.Point(15, 139);
             this.beginCompareButton.Name = "beginCompareButton";
             this.beginCompareButton.Size = new System.Drawing.Size(179, 68);
             this.beginCompareButton.TabIndex = 1;
@@ -57,20 +58,31 @@ namespace CourseProjectLosslessCompressionMethods
             // 
             // showResultsInGraphic
             // 
-            this.showResultsInGraphic.Location = new System.Drawing.Point(346, 20);
+            this.showResultsInGraphic.Location = new System.Drawing.Point(15, 213);
             this.showResultsInGraphic.Name = "showResultsInGraphic";
-            this.showResultsInGraphic.Size = new System.Drawing.Size(194, 132);
+            this.showResultsInGraphic.Size = new System.Drawing.Size(179, 84);
             this.showResultsInGraphic.TabIndex = 3;
             this.showResultsInGraphic.Text = "Отобразить результаты";
             this.showResultsInGraphic.UseVisualStyleBackColor = true;
             this.showResultsInGraphic.Click += new System.EventHandler(this.showResultsInGraphic_Click);
+            // 
+            // fileNameLabel
+            // 
+            this.fileNameLabel.AutoSize = true;
+            this.fileNameLabel.Location = new System.Drawing.Point(12, 105);
+            this.fileNameLabel.Name = "fileNameLabel";
+            this.fileNameLabel.Size = new System.Drawing.Size(106, 24);
+            this.fileNameLabel.TabIndex = 4;
+            this.fileNameLabel.Text = "Имя файла";
+            this.fileNameLabel.Click += new System.EventHandler(this.label1_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.OliveDrab;
-            this.ClientSize = new System.Drawing.Size(818, 648);
+            this.ClientSize = new System.Drawing.Size(208, 309);
+            this.Controls.Add(this.fileNameLabel);
             this.Controls.Add(this.beginCompareButton);
             this.Controls.Add(this.showResultsInGraphic);
             this.Controls.Add(this.importFilesButton);
@@ -80,6 +92,7 @@ namespace CourseProjectLosslessCompressionMethods
             this.Text = "Чапаев Илья 20ВП1 Неискажающие алгоритмы сжатия";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -88,6 +101,7 @@ namespace CourseProjectLosslessCompressionMethods
         private System.Windows.Forms.Button importFilesButton;
         private System.Windows.Forms.Button beginCompareButton;
         private System.Windows.Forms.Button showResultsInGraphic;
+        private System.Windows.Forms.Label fileNameLabel;
     }
 }
 

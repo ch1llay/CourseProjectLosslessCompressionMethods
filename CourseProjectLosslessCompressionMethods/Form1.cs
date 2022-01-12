@@ -35,6 +35,8 @@ namespace CourseProjectLosslessCompressionMethods
             FileDialog fileDialog = new OpenFileDialog();
             fileDialog.ShowDialog();
             path = fileDialog.FileName;
+            string visibleFilename = path.Split('\\').Last();
+            fileNameLabel.Text = visibleFilename;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -97,6 +99,11 @@ namespace CourseProjectLosslessCompressionMethods
                 graphicResult.Show();
             }
             
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

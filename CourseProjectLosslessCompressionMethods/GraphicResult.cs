@@ -54,6 +54,14 @@ namespace CourseProjectLosslessCompressionMethods
             dataGridView1.Rows.Add("Время сжатия", huffmanTime, lz77Time, deflateTime );
             dataGridView1.Rows.Add("Степень сжатия", huffmanDegree, lz77Degree, deflateDegree);
 
+            chart1.Series[0].Points.AddXY(0, huffmanTime);
+            chart1.Series[1].Points.AddXY(1, lz77Time);
+            chart1.Series[2].Points.AddXY(2, deflateTime);
+            chart2.Series[0].Points.AddXY(0, huffmanDegree);
+            chart2.Series[1].Points.AddXY(1, lz77Degree);
+            chart2.Series[2].Points.AddXY(2, deflateDegree);
+
+
 
         }
     }
