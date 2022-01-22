@@ -35,33 +35,14 @@ namespace CourseProjectLosslessCompressionMethods.Methods.Huffman
         Node root;
         string[] codes = new string[256]; // массив кодов для каждого байта
         byte[] data; //  входные данные
-
-
-        public void CompressFile(string dataFilename)
-        {
-            byte[] data = File.ReadAllBytes(dataFilename);
-            byte[] arhData = CompressBytes(data);
-
-            File.WriteAllBytes($"{dataFilename}.huf", arhData);
-        }
         public byte[] Compress(byte[] data)
         {
             GetFreqsSymbols(data);
             root = CreateHuffmanTree();
             CreateHuffmanCodes();
             byte[] compressedBytes = CompressBytes(data);
-            // byte[] head = CreateHeader(data.Length);
             return compressedBytes;
         }
-
-        //private byte[] CreateHeader(int dataLength)
-        //{
-        //    List<byte> head = new List<byte>();
-        //    head.Add((byte)(dataLength        & 255));
-        //    head.Add((byte)((dataLength  >> 8)& 255));
-        //    head.Add((byte)((dataLength  >> 16)& 255));
-        //    head.Add((byte)((dataLength  >> 24)& 255));
-        //}
 
         byte[] CompressBytes(byte[] data)
         {
@@ -140,40 +121,7 @@ namespace CourseProjectLosslessCompressionMethods.Methods.Huffman
                 pq.Enqueue(freqSum, parent);
             }
             return pq.Dequeue();
-        }
-
-        //void PushNodesToList()
-        //{
-        //    foreach(var pair in tabelsFrequencySymbols)
-        //    {
-        //        codeTreeNodes.Add(new CodeTreeNode(pair.Key, pair.Value));
-        //    }
-        //}
-        //void BuildTreeForEncode()
-        //{
-        //    while(codeTreeNodes.Count > 1)
-        //    {
-        //        codeTreeNodes = codeTreeNodes.OrderByDescending(x => x).ToList();
-
-        //        CodeTreeNode right = codeTreeNodes[codeTreeNodes.Count-1]; 
-        //        codeTreeNodes.RemoveAt(codeTreeNodes.Count - 1);
-
-        //        CodeTreeNode left = codeTreeNodes[codeTreeNodes.Count - 1];
-        //        codeTreeNodes.RemoveAt(codeTreeNodes.Count - 1);
-
-        //        CodeTreeNode parent = new CodeTreeNode(null, left.Frequence + right.Frequence, left, right);
-        //        codeTreeNodes.Add(parent);
-
-        //    }
-        //    tree = codeTreeNodes[0];
-        //}
-
-        //void Decode(List<byte> encoded)
-        //{
-        //    List<byte> decoded = new List<byte>();
-
-
-        //}
+        }        
 
     }
 }

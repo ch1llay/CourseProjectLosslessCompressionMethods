@@ -10,6 +10,7 @@ namespace CourseProjectLosslessCompressionMethods.Methods.Deflate
 {
     class Deflate
     {
+        byte[] inputData;
         public static long Compress(string sourceFile, string compressedFile)
         {
             using (FileStream originalFileStream = File.OpenRead(sourceFile))

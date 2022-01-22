@@ -32,11 +32,16 @@ namespace CourseProjectLosslessCompressionMethods
         double deflateDegree;
         private void button1_Click(object sender, EventArgs e)
         {
-            FileDialog fileDialog = new OpenFileDialog();
-            fileDialog.ShowDialog();
-            path = fileDialog.FileName;
-            string visibleFilename = path.Split('\\').Last();
-            fileNameLabel.Text = visibleFilename;
+            try
+            {
+                FileDialog fileDialog = new OpenFileDialog();
+                fileDialog.ShowDialog();
+                path = fileDialog.FileName;
+                string visibleFilename = path.Split('\\').Last();
+                fileNameLabel.Text = visibleFilename;
+                beginCompareButton.Enabled = true;
+            }
+            catch { }
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -68,7 +73,7 @@ namespace CourseProjectLosslessCompressionMethods
             stopwatch.Stop();
             deflateTime = stopwatch.ElapsedMilliseconds;
             stopwatch.Reset();
-            MessageBox.Show("Сравнение прошло успешно");
+            showResultsInGraphic.Enabled = true;
 
 
         }

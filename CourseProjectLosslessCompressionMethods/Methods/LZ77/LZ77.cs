@@ -48,12 +48,10 @@ namespace CourseProjectLosslessCompressionMethods.Methods.LZ77
         static int dictSize;
         Part bufer;
         Part dict;
-        List<byte[]> code;
         public LZ77(int dictSize_, int buferSize_ = 16)
         {
             buferSize = buferSize_;
             dictSize = dictSize_;
-            code = new List<byte[]>();
             bufer = new Part(buferSize, -1, -buferSize);
             dict = new Part(dictSize, -buferSize - 1, -buferSize - dictSize);
 

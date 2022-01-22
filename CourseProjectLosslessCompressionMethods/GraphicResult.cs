@@ -17,11 +17,11 @@ namespace CourseProjectLosslessCompressionMethods
         {
             InitializeComponent();
         }
-        long huffmanTime;
+        long   huffmanTime;
         double huffmanDegree;
-        long lz77Time;
+        long   lz77Time;
         double lz77Degree;
-        long deflateTime;
+        long   deflateTime;
         double deflateDegree;
 
         public void AddData(long huffmanTime, double huffmanDegree, long lz77Time, double lz77Degree, long deflateTime, double deflateDegree)

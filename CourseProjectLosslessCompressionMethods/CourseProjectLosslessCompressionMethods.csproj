@@ -25,7 +25,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -64,14 +64,6 @@
     <Compile Include="Methods\Huffman\PriorityQueue.cs" />
     <Compile Include="Methods\BitList.cs" />
     <Compile Include="Methods\LZ77\LZ77.cs" />
-    <Compile Include="Methods\LZ77\LZ77Test.cs" />
-    <Compile Include="TableResult.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="TableResult.Designer.cs">
-      <DependentUpon>TableResult.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Test.cs" />
     <Compile Include="Methods\Huffman\Huffman.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
