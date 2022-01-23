@@ -73,9 +73,9 @@ namespace CourseProjectLosslessCompressionMethods
             this.fileNameLabel.AutoSize = true;
             this.fileNameLabel.Location = new System.Drawing.Point(12, 98);
             this.fileNameLabel.Name = "fileNameLabel";
-            this.fileNameLabel.Size = new System.Drawing.Size(224, 24);
+            this.fileNameLabel.Size = new System.Drawing.Size(263, 24);
             this.fileNameLabel.TabIndex = 4;
-            this.fileNameLabel.Text = "Имя сжимаемого файла";
+            this.fileNameLabel.Text = "Файл для сжатия не выбран";
             this.fileNameLabel.Click += new System.EventHandler(this.label1_Click);
             // 
             // Form1

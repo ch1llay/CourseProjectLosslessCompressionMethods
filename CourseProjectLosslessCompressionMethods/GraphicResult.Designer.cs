@@ -118,7 +118,7 @@ namespace CourseProjectLosslessCompressionMethods
             chartArea2.Name = "ChartArea1";
             this.chart2.ChartAreas.Add(chartArea2);
             legend2.Name = "Сравнение по степени сжатия";
-            legend2.Title = "Сравнение по времени";
+            legend2.Title = "Сравнение по степени сжатия";
             this.chart2.Legends.Add(legend2);
             this.chart2.Location = new System.Drawing.Point(12, 348);
             this.chart2.Name = "chart2";
@@ -136,13 +136,13 @@ namespace CourseProjectLosslessCompressionMethods
             this.chart2.Series.Add(series6);
             this.chart2.Size = new System.Drawing.Size(652, 186);
             this.chart2.TabIndex = 2;
-            this.chart2.Text = "Сравнение по времени";
+            this.chart2.Text = "Сравнение по степени сжатия";
             // 
             // GraphicResult
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(843, 538);
+            this.ClientSize = new System.Drawing.Size(674, 542);
             this.Controls.Add(this.chart2);
             this.Controls.Add(this.chart1);
             this.Controls.Add(this.dataGridView1);

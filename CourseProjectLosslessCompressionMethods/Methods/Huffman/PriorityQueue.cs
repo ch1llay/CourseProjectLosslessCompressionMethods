@@ -2,7 +2,7 @@
 
 namespace CourseProjectLosslessCompressionMethods.Methods.Huffman
 {
-    internal class PriorityQueue<T>
+    class PriorityQueue<T>
     {
         int size;
         public int Size { get { return size; } }

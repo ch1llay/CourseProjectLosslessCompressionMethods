@@ -9,10 +9,10 @@ namespace CourseProjectLosslessCompressionMethods.Methods.Huffman
 {
     class Node
     {
-        public readonly byte symbol;
-        public readonly int freq;
-        public readonly Node bit0;
-        public readonly Node bit1;
+        public byte symbol;
+        public int freq;
+        public Node bit0;
+        public Node bit1;
 
         public Node(byte symbol, int freq)
         {
@@ -31,9 +31,9 @@ namespace CourseProjectLosslessCompressionMethods.Methods.Huffman
 
     class Huffman
     {
-        int[] freqs = new int[256]; // массив, он же словарь частот использования байт
-        Node root;
+        int[] freqs = new int[256]; // массив частот
         string[] codes = new string[256]; // массив кодов для каждого байта
+        Node root;
         byte[] data; //  входные данные
         public byte[] Compress(byte[] data)
         {

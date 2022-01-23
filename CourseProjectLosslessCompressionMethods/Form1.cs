@@ -74,6 +74,7 @@ namespace CourseProjectLosslessCompressionMethods
             deflateTime = stopwatch.ElapsedMilliseconds;
             stopwatch.Reset();
             showResultsInGraphic.Enabled = true;
+            MessageBox.Show("Сжатие завершено, результаты сравнения записаны", "Уведомление");
 
 
         }
